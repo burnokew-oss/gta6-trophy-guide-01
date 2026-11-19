@@ -3,93 +3,117 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leonida Trophy Guide — GTA VI (PS5)</title>
-<meta name="description" content="An offline guide and tracker for all 55 PlayStation 5 trophies of Grand Theft Auto VI: official names, descriptions and grades, a saved checklist, filters, a spoiler setting, a platinum roadmap and the missable trophies.">
-<link rel="icon" href="data:,">
+<title>Leonida Trophy Guide — GTA VI, all 55 trophies</title>
+<meta name="description" content="The complete offline guide to the 55 PlayStation 5 trophies of Grand Theft Auto VI: every official name, description and grade, a guide in our own words with sources, a checklist that remembers you, and a roadmap to the platinum.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="top">
-  <div class="title-block">
-    <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5 &middot; fan-made guide, not affiliated with Rockstar Games</p>
-    <h1>Leonida Trophy Guide</h1>
-    <p class="subtitle">All 55 official trophies — track them, read the guide for each one, and plan the road to the Platinum. Works fully offline: nothing on this page loads from the network.</p>
+<header class="masthead">
+  <div class="masthead-top">
+    <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5 &middot; Works offline</p>
+    <p class="masthead-counts">55 trophies &middot; 1 platinum &middot; 2 gold &middot; 6 silver &middot; 46 bronze</p>
   </div>
-  <div class="progress-card" aria-label="Overall progress">
-    <div class="progress-ring" id="ring" role="img" aria-label="0 of 55 trophies earned"><span id="ringText">0/55</span></div>
-    <div class="progress-meta">
-      <p class="progress-line"><strong id="earnedCount">0</strong> of <strong>55</strong> earned &middot; <span id="earnedPct">0%</span></p>
-      <p class="grade-bars" id="gradeBars"></p>
-      <p class="platinum-line" id="platinumLine">Platinum <strong>Vice Got a Price!</strong> unlocks at 54 of 54.</p>
-    </div>
+  <h1>Leonida Trophy Guide</h1>
+  <p class="standfirst">Every official trophy, its guide in our own words with sources, and a checklist that remembers you.</p>
+  <div class="progress-strip" role="status" aria-live="polite">
+    <span class="progress-numbers"><strong id="earnedCount">0</strong> / 55 earned</span>
+    <span class="progress-bar" aria-hidden="true"><span id="progressFill"></span></span>
+    <span id="progressText" class="progress-text">Platinum 0% there</span>
+    <span id="gradeCounts" class="grade-counts"></span>
   </div>
 </header>
 
-<section class="toolbar" aria-label="Filters and progress tools">
-  <div class="toolbar-row">
-    <label class="search-label">Search <input id="search" type="search" placeholder="Trophy name, description or guide…" autocomplete="off"></label>
-    <label>Grade
-      <select id="gradeFilter">
-        <option value="all">All grades</option>
-        <option value="platinum">Platinum</option>
-        <option value="gold">Gold</option>
-        <option value="silver">Silver</option>
-        <option value="bronze">Bronze</option>
-      </select>
-    </label>
-    <label>Kind
-      <select id="kindFilter">
-        <option value="all">All kinds</option>
-      </select>
-    </label>
-    <label>Status
-      <select id="statusFilter">
-        <option value="all">All</option>
-        <option value="earned">Earned</option>
-        <option value="remaining">Not earned yet</option>
-        <option value="missable">Missable / time-sensitive</option>
-      </select>
-    </label>
-    <label class="spoiler-toggle"><input id="spoilerToggle" type="checkbox" checked> Hide spoilers (hidden trophies stay secret until earned)</label>
-  </div>
-  <div class="toolbar-row tools">
-    <button id="exportBtn" type="button">Export progress (.json)</button>
-    <label class="import-btn">Import progress <input id="importFile" type="file" accept="application/json,.json"></label>
-    <button id="resetBtn" type="button">Reset progress</button>
-    <span class="saved-note" id="savedNote">Progress saves in this browser automatically.</span>
-  </div>
-</section>
-
-<section class="alert" id="missableAlert">
-  <h2>Watch out: one trophy can be missed</h2>
-  <p><strong>Positive Mental Attitude</strong> (Bronze) — meditate at every spot across Leonida. Lucia&rsquo;s balcony meditation in <strong>Chapter&nbsp;1</strong> counts toward it and disappears once that chapter ends. Do it in Chapter&nbsp;1 and keep a Chapter&nbsp;1 save until the trophy pops. There is no mission replay, so keep a manual save at the start of every chapter and one untouched save from just before the final mission.</p>
-  <p class="alert-sub">Also time-sensitive: <strong>Race Against Yago</strong> in Chapter&nbsp;3 (it counts toward <strong>Strangers &amp; Freaks</strong>). Do it the moment it appears. Everything else stays available after the credits.</p>
-</section>
-
-<section class="roadmap" id="roadmap">
-  <h2>Roadmap to the Platinum — about 200 hours</h2>
-  <p class="roadmap-intro">Six phases, in order. The story first (with your chapter saves), then side stories, robberies, activities and collections, and finally the 100% checklist. Roughly 200 hours in total, difficulty about 4/10 — long, not hard. No online trophies, no difficulty trophies, no mission medals. Cheats should switch off trophies and saving, so keep them off your trophy save.</p>
-  <div class="phase-list" id="phaseList"></div>
-</section>
+<nav class="views" aria-label="Guide sections">
+  <button type="button" data-view="tracker" class="view-tab active" aria-current="page">Tracker</button>
+  <button type="button" data-view="roadmap" class="view-tab">Roadmap to Platinum</button>
+  <button type="button" data-view="missables" class="view-tab">Missables <span class="tab-badge">1</span></button>
+  <button type="button" data-view="sources" class="view-tab">Sources &amp; honesty</button>
+</nav>
 
 <main>
-  <div class="list-head">
-    <h2 id="listTitle">All trophies</h2>
-    <p id="listCount"></p>
-  </div>
-  <div class="trophy-grid" id="trophyGrid"></div>
-  <p class="empty" id="emptyMsg" hidden>No trophies match these filters. Clear the search or pick another kind.</p>
+  <section id="view-tracker" class="view active" aria-label="Trophy tracker">
+    <div class="toolbar">
+      <label class="field search-field">Search
+        <input id="q" type="search" placeholder="Trophy name, mission, keyword&hellip;" autocomplete="off">
+      </label>
+      <label class="field">Grade
+        <select id="gradeFilter">
+          <option value="all">All grades</option>
+          <option value="platinum">Platinum</option>
+          <option value="gold">Gold</option>
+          <option value="silver">Silver</option>
+          <option value="bronze">Bronze</option>
+        </select>
+      </label>
+      <label class="field">Kind
+        <select id="kindFilter">
+          <option value="all">All kinds</option>
+        </select>
+      </label>
+      <label class="field">Status
+        <select id="statusFilter">
+          <option value="all">All trophies</option>
+          <option value="earned">Earned only</option>
+          <option value="remaining">Not earned yet</option>
+        </select>
+      </label>
+      <label class="check-field"><input id="missableOnly" type="checkbox"> Missable only</label>
+      <label class="check-field spoiler-field"><input id="spoilerToggle" type="checkbox"> Hide story spoilers</label>
+      <span class="toolbar-actions">
+        <button id="exportBtn" type="button">Export progress</button>
+        <button id="importBtn" type="button">Import progress</button>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
+        <button id="resetBtn" type="button" class="quiet">Reset</button>
+      </span>
+    </div>
+    <p id="resultCount" class="result-line" aria-live="polite"></p>
+    <div class="tracker-grid">
+      <ul id="trophyList" class="trophy-list" aria-label="Trophy list"></ul>
+      <aside id="detail" class="detail" aria-label="Selected trophy guide" aria-live="polite"></aside>
+    </div>
+  </section>
+
+  <section id="view-roadmap" class="view" aria-label="Roadmap to the platinum">
+    <h2>Roadmap to the platinum &mdash; Vice Got a Price!</h2>
+    <p class="section-intro">One playthrough, about 200 hours, difficulty about 4/10. The order below is built from the official
+    descriptions: story first, side strands while they are open, the one possibly-missable meditation early, then
+    activities, collections and money, and the 100% checklist last. Each phase shows which trophies it earns and how
+    far along you are.</p>
+    <ol id="roadmapList" class="roadmap"></ol>
+  </section>
+
+  <section id="view-missables" class="view" aria-label="Missable trophies">
+    <h2>Missables &mdash; what can actually go wrong</h2>
+    <p class="section-intro">Good news first: there is no mission replay in GTA VI, but the story trophies unlock automatically
+    and cannot be missed, and the launch-week guides flag only one trophy as possibly missable. The watch list below
+    is the honest remainder &mdash; strands with story windows and one permanent habit &mdash; drawn from the guides, not guessed.</p>
+    <h3>Possibly missable &mdash; 1 trophy</h3>
+    <div id="missableList" class="missable-list"></div>
+    <h3>Watch list &mdash; story windows to respect</h3>
+    <ul id="watchList" class="watch-list"></ul>
+  </section>
+
+  <section id="view-sources" class="view" aria-label="Sources and honesty">
+    <h2>Sources &amp; honesty</h2>
+    <p class="section-intro">The official names, descriptions and grades are facts, reproduced exactly from the official list and
+    cross-checked against the sources below. Every guide is written in our own words from those sources &mdash; never
+    copied &mdash; and each trophy&rsquo;s detail panel names the sources its guide draws on.</p>
+    <ul id="sourceList" class="source-list"></ul>
+    <h3>What is not yet confirmed</h3>
+    <p>Five trophies have no confirmed unlock method at launch &mdash; their official descriptions are the only hint, and
+    their guides say so plainly instead of guessing: In The Beginning&hellip;, Capital Offense, Bad Luck, I Guess,
+    The Truth Is Out There and Ten Pin. Two more rest on community reports that are not yet fully confirmed:
+    Personal Best and Actions Speak Louder. Those guides are labelled as reported, not certain. If a method is
+    confirmed later, the guide should be updated &mdash; until then, no invented steps.</p>
+    <h3>How to use this guide</h3>
+    <p>Tick a trophy the moment it pops and it stays ticked in this browser. Export your progress before clearing
+    browser data, and import it back on any machine. Keep one manual save at the start of every chapter and one
+    untouched save from just before the final mission &mdash; there is no mission replay and no New Game Plus.</p>
+  </section>
 </main>
 
-<section class="sources" id="sources">
-  <h2>Sources &amp; how this guide was built</h2>
-  <p>Official trophy names, descriptions and grades are facts reproduced exactly from the public PS5 trophy list. Every guide below them is written in this guide&rsquo;s own words; where a method comes from a published guide, the source is named on that trophy. Five hidden trophies (In The Beginning…, Capital Offense, Bad Luck, I Guess, The Truth Is Out There, Ten Pin) have no confirmed unlock method at launch — the guide says so plainly instead of inventing one.</p>
-  <ul id="sourceList"></ul>
-  <p class="fineprint">Grand Theft Auto and GTA are trademarks of Take-Two Interactive / Rockstar Games. This is an unofficial fan-made guide and tracker; it uses no Rockstar logo or official artwork. Trophy data verified 19 November 2026.</p>
-</section>
-
 <footer>
-  <p>Leonida Trophy Guide — offline, free, open source. Your checklist lives only in this browser (localStorage) unless you export it.</p>
+  <p>Built from the official 55-trophy list. No Rockstar logo or official artwork. All files are local &mdash; this guide works with the network off.</p>
 </footer>
 
 <script type="module" src="app.js"></script>
