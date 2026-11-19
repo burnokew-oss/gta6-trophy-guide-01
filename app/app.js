@@ -33,12 +33,24 @@ const kindFilter = $('kindFilter');
 const statusFilter = $('statusFilter');
 const spoilerToggle = $('spoilerToggle');
 
-for (const kind of Object.keys(KIND_LABELS)) {
-  const opt = document.createElement('option');
-  opt.value = kind;
-  opt.textContent = KIND_LABELS[kind];
-  kindFilter.append(opt);
+function refreshKindOptions() {
+  kindFilter.replaceChildren();
+  const all = document.createElement('option');
+  all.value = 'all';
+  all.textContent = 'All kinds';
+  kindFilter.append(all);
+  for (const kind of Object.keys(KIND_LABELS)) {
+    const opt = document.createElement('option');
+    opt.value = kind;
+    const n = trophies.filter((t) => t.kind === kind).length;
+    const got = trophies.filter((t) => t.kind === kind && earned.has(t.name)).length;
+    opt.textContent = `${KIND_LABELS[kind]} (${got}/${n})`;
+    kindFilter.append(opt);
+  }
+  kindFilter.value = currentKind;
 }
+let currentKind = 'all';
+refreshKindOptions();
 spoilerToggle.checked = spoilersOn;
 
 function save() {
@@ -229,6 +241,7 @@ function visibleTrophies() {
 }
 
 function renderList() {
+  refreshKindOptions();
   const list = visibleTrophies();
   grid.replaceChildren(...list.map(trophyCard));
   $('emptyMsg').hidden = list.length > 0;
@@ -259,7 +272,10 @@ $('listTitle').addEventListener('click', () => {
 });
 searchInput.addEventListener('input', renderList);
 gradeFilter.addEventListener('change', renderList);
-kindFilter.addEventListener('change', renderList);
+kindFilter.addEventListener('change', () => {
+  currentKind = kindFilter.value;
+  renderList();
+});
 statusFilter.addEventListener('change', renderList);
 spoilerToggle.addEventListener('change', () => {
   spoilersOn = spoilerToggle.checked;
