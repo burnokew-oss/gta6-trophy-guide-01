@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonida Trophy Guide — GTA VI (PS5)</title>
+<meta name="description" content="An offline guide and tracker for all 55 PlayStation 5 trophies of Grand Theft Auto VI: official names, descriptions and grades, a saved checklist, filters, a spoiler setting, a platinum roadmap and the missable trophies.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="title-block">
+    <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5 &middot; fan-made guide, not affiliated with Rockstar Games</p>
+    <h1>Leonida Trophy Guide</h1>
+    <p class="subtitle">All 55 official trophies — track them, read the guide for each one, and plan the road to the Platinum. Works fully offline: nothing on this page loads from the network.</p>
+  </div>
+  <div class="progress-card" aria-label="Overall progress">
+    <div class="progress-ring" id="ring" role="img" aria-label="0 of 55 trophies earned"><span id="ringText">0/55</span></div>
+    <div class="progress-meta">
+      <p class="progress-line"><strong id="earnedCount">0</strong> of <strong>55</strong> earned &middot; <span id="earnedPct">0%</span></p>
+      <p class="grade-bars" id="gradeBars"></p>
+      <p class="platinum-line" id="platinumLine">Platinum <strong>Vice Got a Price!</strong> unlocks at 54 of 54.</p>
+    </div>
+  </div>
+</header>
+
+<section class="toolbar" aria-label="Filters and progress tools">
+  <div class="toolbar-row">
+    <label class="search-label">Search <input id="search" type="search" placeholder="Trophy name, description or guide…" autocomplete="off"></label>
+    <label>Grade
+      <select id="gradeFilter">
+        <option value="all">All grades</option>
+        <option value="platinum">Platinum</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="bronze">Bronze</option>
+      </select>
+    </label>
+    <label>Kind
+      <select id="kindFilter">
+        <option value="all">All kinds</option>
+      </select>
+    </label>
+    <label>Status
+      <select id="statusFilter">
+        <option value="all">All</option>
+        <option value="earned">Earned</option>
+        <option value="remaining">Not earned yet</option>
+        <option value="missable">Missable / time-sensitive</option>
+      </select>
+    </label>
+    <label class="spoiler-toggle"><input id="spoilerToggle" type="checkbox" checked> Hide spoilers (hidden trophies stay secret until earned)</label>
+  </div>
+  <div class="toolbar-row tools">
+    <button id="exportBtn" type="button">Export progress (.json)</button>
+    <label class="import-btn">Import progress <input id="importFile" type="file" accept="application/json,.json"></label>
+    <button id="resetBtn" type="button">Reset progress</button>
+    <span class="saved-note" id="savedNote">Progress saves in this browser automatically.</span>
+  </div>
+</section>
+
+<section class="alert" id="missableAlert">
+  <h2>Watch out: one trophy can be missed</h2>
+  <p><strong>Positive Mental Attitude</strong> (Bronze) — meditate at every spot across Leonida. Lucia&rsquo;s balcony meditation in <strong>Chapter&nbsp;1</strong> counts toward it and disappears once that chapter ends. Do it in Chapter&nbsp;1 and keep a Chapter&nbsp;1 save until the trophy pops. There is no mission replay, so keep a manual save at the start of every chapter and one untouched save from just before the final mission.</p>
+  <p class="alert-sub">Also time-sensitive: <strong>Race Against Yago</strong> in Chapter&nbsp;3 (it counts toward <strong>Strangers &amp; Freaks</strong>). Do it the moment it appears. Everything else stays available after the credits.</p>
+</section>
+
+<section class="roadmap" id="roadmap">
+  <h2>Roadmap to the Platinum — about 200 hours</h2>
+  <p class="roadmap-intro">Six phases, in order. The story first (with your chapter saves), then side stories, robberies, activities and collections, and finally the 100% checklist. Roughly 200 hours in total, difficulty about 4/10 — long, not hard. No online trophies, no difficulty trophies, no mission medals. Cheats should switch off trophies and saving, so keep them off your trophy save.</p>
+  <div class="phase-list" id="phaseList"></div>
+</section>
+
+<main>
+  <div class="list-head">
+    <h2 id="listTitle">All trophies</h2>
+    <p id="listCount"></p>
+  </div>
+  <div class="trophy-grid" id="trophyGrid"></div>
+  <p class="empty" id="emptyMsg" hidden>No trophies match these filters. Clear the search or pick another kind.</p>
+</main>
+
+<section class="sources" id="sources">
+  <h2>Sources &amp; how this guide was built</h2>
+  <p>Official trophy names, descriptions and grades are facts reproduced exactly from the public PS5 trophy list. Every guide below them is written in this guide&rsquo;s own words; where a method comes from a published guide, the source is named on that trophy. Five hidden trophies (In The Beginning…, Capital Offense, Bad Luck, I Guess, The Truth Is Out There, Ten Pin) have no confirmed unlock method at launch — the guide says so plainly instead of inventing one.</p>
+  <ul id="sourceList"></ul>
+  <p class="fineprint">Grand Theft Auto and GTA are trademarks of Take-Two Interactive / Rockstar Games. This is an unofficial fan-made guide and tracker; it uses no Rockstar logo or official artwork. Trophy data verified 19 November 2026.</p>
+</section>
+
+<footer>
+  <p>Leonida Trophy Guide — offline, free, open source. Your checklist lives only in this browser (localStorage) unless you export it.</p>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
