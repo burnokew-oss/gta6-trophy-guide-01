@@ -1,133 +1,99 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leonida Trophy Ledger — GTA VI Trophy Guide &amp; Tracker</title>
+<title>Leonida Ledger — GTA VI Trophy Guide &amp; Platinum Tracker</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="masthead">
-  <div class="masthead-top">
-    <div class="brand">
-      <h1>Leonida Trophy Ledger</h1>
-      <p class="tagline">The audited guide &amp; tracker for all 55 Grand Theft Auto VI trophies on PlayStation 5. Every step cites its source.</p>
-    </div>
-    <div class="progress-box">
-      <div class="progress-count"><span id="earned-count">0</span><span class="of"> / 55 earned</span></div>
-      <div class="progress-bar"><div id="progress-fill"></div></div>
-      <div class="grade-chips" id="grade-chips"></div>
-      <div class="saved-note" id="saved-note">Saved in this browser</div>
+<header id="topbar">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">LL</div>
+    <div>
+      <h1>Leonida Ledger</h1>
+      <p class="tagline">The offline GTA VI trophy guide &amp; platinum tracker — all 55 PlayStation 5 trophies, every guide in our own words with its sources named.</p>
     </div>
   </div>
-  <div class="audit-strip" id="audit-strip"></div>
-  <nav class="view-tabs" id="view-tabs">
-    <button data-view="ledger" class="active">Ledger</button>
-    <button data-view="roadmap">Roadmap</button>
-    <button data-view="matrix">Source matrix</button>
-    <button data-view="save">Export / Import</button>
-    <span class="tab-spacer"></span>
-    <label class="spoiler-toggle">Spoilers
-      <button id="spoiler-btn" class="toggle-btn">Shown</button>
-    </label>
-    <button id="quick-export" class="ghost-btn">Export</button>
-    <button id="quick-import" class="ghost-btn">Import</button>
-  </nav>
+  <div class="scoreboard" id="scoreboard">
+    <div class="big-count"><span id="earnedCount">0</span><span class="of"> / 55 earned</span></div>
+    <div class="bar"><div id="barFill"></div></div>
+    <div class="chips" id="gradeChips"></div>
+    <p class="list-makeup">Official list: 1 platinum · 2 gold · 6 silver · 46 bronze · 28 hidden · no online trophies</p>
+  </div>
 </header>
 
+<nav id="viewTabs" aria-label="Views">
+  <button type="button" data-view="tracker" class="tab active">Tracker &amp; Guides</button>
+  <button type="button" data-view="roadmap" class="tab">Roadmap to Platinum</button>
+  <button type="button" data-view="sources" class="tab">Sources</button>
+</nav>
+
 <main>
-  <section id="view-ledger" class="view active">
-    <div class="ledger-grid">
-      <div class="ledger-list panel">
-        <div class="filters">
-          <div class="chip-row" id="kind-chips"></div>
-          <div class="filter-row">
-            <input id="search" type="search" placeholder="Search trophies…">
-            <select id="grade-select">
-              <option value="">All grades</option>
-              <option value="platinum">Platinum</option>
-              <option value="gold">Gold</option>
-              <option value="silver">Silver</option>
-              <option value="bronze">Bronze</option>
-            </select>
-            <select id="status-select">
-              <option value="">Any status</option>
-              <option value="earned">Earned</option>
-              <option value="open">Not earned</option>
-            </select>
-          </div>
-          <div class="filter-row toggles">
-            <label><input type="checkbox" id="missable-only"> Flagged only</label>
-            <label><input type="checkbox" id="unearned-only"> Unearned only</label>
-            <span id="list-count" class="list-count"></span>
-          </div>
-          <div class="next-up" id="next-up"></div>
-        </div>
-        <div class="rows" id="trophy-rows"></div>
-      </div>
-      <div class="ledger-detail panel" id="detail-panel"></div>
-      <aside class="ledger-sources panel" id="sources-column"></aside>
+  <section id="view-tracker" class="view">
+    <div class="controls" id="controls">
+      <label class="ctl grow">Search <input id="search" type="search" placeholder="Name, description or guide text…"></label>
+      <label class="ctl">Kind
+        <select id="kindFilter">
+          <option value="all">All kinds</option>
+          <option value="story">Story</option>
+          <option value="side">Side strands</option>
+          <option value="collectible">Collectibles</option>
+          <option value="activity">Activities</option>
+          <option value="feat">Feats &amp; robberies</option>
+          <option value="completion">Completion</option>
+          <option value="platinum">Platinum</option>
+        </select>
+      </label>
+      <label class="ctl">Grade
+        <select id="gradeFilter">
+          <option value="all">All grades</option>
+          <option value="platinum">Platinum</option>
+          <option value="gold">Gold</option>
+          <option value="silver">Silver</option>
+          <option value="bronze">Bronze</option>
+        </select>
+      </label>
+      <label class="ctl">Status
+        <select id="statusFilter">
+          <option value="all">All</option>
+          <option value="earned">Earned</option>
+          <option value="left">Not yet earned</option>
+        </select>
+      </label>
+      <label class="ctl check"><input id="missableOnly" type="checkbox"> Missable watch only</label>
+      <label class="ctl check"><input id="spoilerToggle" type="checkbox" checked> Spoiler shield: hide story trophies until earned</label>
+      <button id="exportBtn" type="button">Export progress</button>
+      <label class="ctl import-btn">Import progress <input id="importFile" type="file" accept="application/json"></label>
+      <span id="showingCount" class="showing"></span>
+    </div>
+    <div class="tracker-grid">
+      <div id="trophyList" class="trophy-list" role="list"></div>
+      <aside id="detailPane" class="detail-pane" aria-live="polite"></aside>
     </div>
   </section>
 
-  <section id="view-roadmap" class="view">
-    <div class="roadmap-grid">
-      <div class="stages" id="stages"></div>
-      <div class="roadmap-side">
-        <div class="panel" id="watch-panel"></div>
-        <div class="panel" id="rules-panel"></div>
-        <div class="panel" id="method-panel"></div>
-      </div>
-    </div>
+  <section id="view-roadmap" class="view" hidden>
+    <h2>Roadmap to the Platinum — Vice Got a Price!</h2>
+    <p class="road-intro">One playthrough is enough. Published roadmaps rate the platinum about 4/10 for difficulty and roughly <strong>200 hours</strong>, with the time going into the 100% checklist rather than hard trophies. There are <strong>no online trophies</strong> and <strong>no difficulty settings</strong> to worry about. Two standing rules: <strong>never use cheats</strong> (they disable trophies and saving) and <strong>keep manual saves at chapter starts and ends</strong>, because the game has no mission replay. Roadmap and missable flags below are built from the official trophy descriptions, cross-checked against the sources on the Sources tab.</p>
+    <div id="stageCards"></div>
+    <h3 class="watch-title">Missable watchlist — read before you play</h3>
+    <p class="road-intro">Honest tiers, not alarm bells. <strong>Possibly missable</strong> means a guide with a platinum in hand flags a real risk; <strong>watch</strong> means availability pauses that resolve later. Everything else in the list cannot be missed.</p>
+    <div id="watchList"></div>
   </section>
 
-  <section id="view-matrix" class="view">
-    <div class="panel">
-      <h2>Source matrix — steps supported per source</h2>
-      <p class="matrix-summary" id="matrix-summary"></p>
-      <div class="matrix-wrap"><table id="matrix-table"></table></div>
-      <p class="matrix-legend">Number = how many of that trophy&rsquo;s steps the source supports. &middot; = the source is named on the trophy but supports no single step. Blank = unused. Flags mark single-source guides and source disagreements.</p>
-    </div>
-  </section>
-
-  <section id="view-save" class="view">
-    <div class="save-grid">
-      <div class="panel">
-        <h2>Export</h2>
-        <p>Your progress as JSON — earned trophies, counters, revealed spoilers and the spoiler setting.</p>
-        <textarea id="export-text" rows="12" readonly></textarea>
-        <div class="btn-row">
-          <button id="download-btn">Download JSON</button>
-          <button id="copy-btn">Copy to clipboard</button>
-        </div>
-        <h2>Import</h2>
-        <p>Paste an export below, or choose the file, then import. Importing replaces the saved state in this browser.</p>
-        <textarea id="import-text" rows="8" placeholder="Paste an export here…"></textarea>
-        <div class="btn-row">
-          <input type="file" id="import-file" accept=".json,application/json">
-          <button id="import-btn">Import pasted / chosen</button>
-        </div>
-        <p class="confirm-line" id="import-confirm"></p>
-      </div>
-      <div class="panel">
-        <h2>Saved state</h2>
-        <div id="state-breakdown"></div>
-        <h2>Spoiler shield</h2>
-        <p id="spoiler-explainer"></p>
-        <h2>Reset</h2>
-        <p>Clear every earned mark, counter and reveal stored in this browser.</p>
-        <button id="reset-btn" class="danger-btn">Reset all progress</button>
-        <p class="confirm-line" id="reset-confirm"></p>
-      </div>
-    </div>
+  <section id="view-sources" class="view" hidden>
+    <h2>Sources &amp; how this guide was built</h2>
+    <p class="road-intro">Every trophy guide in the Ledger names its sources beside the guide itself. Official names, descriptions and grades are shown exactly as PlayStation publishes them, via the two list sources below; every method, count and warning is rewritten in our own words from the guide sources — cited, never copied. Where sources disagreed (for example on how hard the platinum is), the Ledger follows the official list for grades and says so in the trophy's guide. Links open only when you follow them; the app itself loads nothing from the network and works fully offline.</p>
+    <div id="sourceList"></div>
+    <h3>Save &amp; restore your progress</h3>
+    <p class="road-intro">Progress is stored in this browser (localStorage) as you tick trophies off. Use Export on the Tracker tab to download it as a file, and Import to restore it on any machine — handy before switching browsers. Your platinum plan, in one file.</p>
   </section>
 </main>
 
-<footer class="colophon">
-  <p>Leonida Trophy Ledger — an independent, unofficial guide. Not affiliated with Rockstar Games or PlayStation. Official trophy names and descriptions are reproduced as published; every guide here is written in our own words and cites its sources. Works fully offline.</p>
+<footer>
+  <p>Leonida Ledger — an original, unofficial fan guide. Not affiliated with Rockstar Games or PlayStation. No game artwork is used; the look is pure CSS. Trophy names and descriptions © their respective owners, shown as published.</p>
 </footer>
-
 <script src="app.js"></script>
-<noscript><p style="padding:12px 20px">The Leonida Trophy Ledger needs JavaScript: the checklist, counters and spoiler shield all run locally in your browser. Nothing is sent anywhere.</p></noscript>
 </body>
 </html>
